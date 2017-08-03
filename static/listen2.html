@@ -120,7 +120,7 @@
       <div class="inner">
         <img class="logo" src="images/logo.png" ng-click="showTag(2)" />
         <h3 class="masthead-brand" ng-click="showTag(2)">Listen 2</h3>
-        <nav>
+        <nav class="titleNav">
           <ul class="nav masthead-nav">
             <li ng-class="{ 'active':current_tag==2 }"><a ng-click="showTag(2)">精选歌单</a></li>
             <li ng-class="{ 'active':current_tag==1 }"><a ng-click="showTag(1)">我的歌单</a></li>
@@ -245,7 +245,7 @@
           </div> -->
           <div class="settings-title"><span>数据备份<span></div>
           <div class="settings-content">
-            <p>重装插件或清除缓存数据会导致我的歌单数据丢失，强烈建议在这些操作前，备份我的歌单。</p>
+            <p>清除缓存数据会导致我的歌单数据丢失，强烈建议在这些操作前，备份我的歌单。</p>
             <div>
               <button class="btn btn-primary confirm-button" ng-click="backupMySettings()">下载备份文件</button>
             </div>
@@ -275,7 +275,7 @@
           <div class="settings-title"><span>关于<span></div>
           <div class="settings-content">
             <p> Listen 2 邮箱: lonelylty@gmail.com </p>
-            <p> Listen 2 主页: <a href="http://music.lonelylty.com" target="_blank"> http://music.lonelylty.com </a> </p>
+            <p> Listen 2 项目地址: <a href="https://github.com/lonelylty/listen2" target="_blank"> https://github.com/lonelylty/listen2 </a> </p>
             <p> Listen 1 邮箱: githublisten1@gmail.com </p>
             <p> Listen 1 主页: <a href="http://listen1.github.io/listen1/" target="_blank"> http://listen1.github.io/listen1/ </a> </p>
             <p> 当前版本 2.0.0 (本服务基于MIT协议开源免费)</p>
