@@ -1078,6 +1078,44 @@ li {
     }
 }
 
+@media screen and (max-height: 400px) {
+    .m-playbar {
+        display: none;
+    }
+}
+
+@media screen and (max-width: 600px){
+    .playlist-detail .detail-head {
+        width: initial;
+        position: initial;
+    }
+    .playlist-detail .detail-head-cover {
+        width: auto; 
+        float: none; 
+        margin: 0; 
+    }
+    .playlist-detail .detail-head-cover img {
+        display: block;
+        margin: auto;
+    }
+    .playlist-detail .detail-head-title {
+        float: none; 
+    }
+    .playlist-detail .detail-head-title h2 {
+         margin-bottom: 0; 
+    }
+    .playlist-detail .detail-songlist {
+        margin:0;
+    }
+}
+
+@media screen and (max-width: 992px) {
+    .cover-container .detail-close {
+        right: 15px;
+        z-index: 10;
+    }
+}
+
 @media (min-width: 992px) {
   .m-playbar {
     position: absolute;
