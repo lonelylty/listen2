@@ -205,9 +205,11 @@
 
     $scope.showDialog = function(dialog_type, data) {
       $scope.is_dialog_hidden = 0;
-      var dialogWidth = 480;
+      // var dialogWidth = 480;
+      var dialogWidth = $(window).width()/1.2>480?480:$(window).width()/1.2;
+      var dialogHeight= $(window).height()/2>420?420:$(window).height()/2;
       var left = $(window).width()/2 - dialogWidth/2;
-      $scope.myStyle = {'left':  left + 'px'};
+      $scope.myStyle = {'left':  left + 'px','width':  dialogWidth + 'px','height':dialogHeight};
 
       if (dialog_type == 0) {
         $scope.dialog_title = '添加到歌单';

@@ -19,8 +19,8 @@ a {
 .dialog {
     position: absolute;
     top: 120px;
-    width: 480px;
-    height: 420px;
+    /*width: 480px;
+    height: 420px;*/
     z-index:10000;
     overflow: hidden;
     border-radius: 4px 4px 4px 4px;
@@ -1066,6 +1066,14 @@ li {
     }
     .m-playbar .time {
         display: none;
+    }
+    .dialog-newplaylist .confirm-button {
+        margin-left: 20px;
+        margin-right: 20px;
+    }
+    .dialog-editplaylist .confirm-button {
+        margin-left: 20px;
+        margin-right: 20px;
     }
 }
 
