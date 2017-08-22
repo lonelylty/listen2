@@ -92,7 +92,7 @@
 
     $rootScope.page_title = "Listen 2";
     $scope.window_url_stack = [];
-    $scope.current_tag = 2;
+    $scope.current_tag = 3;
     $scope.is_window_hidden = 1;
     $scope.is_dialog_hidden = 1;
 
@@ -909,14 +909,16 @@
       $scope.loading = false;
 
       $scope.changeTab = function(newTab){
-        $scope.loading = true;
         $scope.tab = newTab;
-        $scope.result = [];
-        loWeb.get('/search?source=' + getSourceName($scope.tab) + '&keywords=' + $scope.keywords).success(function(data) {
-            // update the textarea
-            $scope.result = data.result;
-            $scope.loading = false;  
-        });
+        if ($scope.keywords.trim().length!=0) {
+          $scope.loading = true;
+          $scope.result = [];
+          loWeb.get('/search?source=' + getSourceName($scope.tab) + '&keywords=' + $scope.keywords).success(function(data) {
+              // update the textarea
+              $scope.result = data.result;
+              $scope.loading = false;  
+          });
+        }
       };
 
       $scope.isActiveTab = function(tab){

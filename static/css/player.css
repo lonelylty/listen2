@@ -102,7 +102,7 @@ a {
     overflow-y: scroll;
     margin-top: 90px;
     /* uncomment the line below will hide the scroll bar */
-    /*padding-right: 17px;*/
+    padding-right: 17px;
     box-sizing:content-box;
     width:100%;
     background-color: #333;
@@ -1114,6 +1114,12 @@ li {
     }
     .playlist-detail .detail-songlist {
         margin:0;
+    }
+    .container-placeholder{
+        margin-top: 50px;
+    }
+    .site-wrapper-innerd{
+        margin-top: 50px;
     }
 }
 
