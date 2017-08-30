@@ -55,7 +55,8 @@ body {
 
 /* Padding for spacing */
 .inner {
-  padding: 30px;
+  /*padding: 30px;*/
+  padding: 30px 30px 10px 30px;
 }
 
 
@@ -97,17 +98,17 @@ body {
 
 @media screen and (max-width: 445px) {
   .titleNav {
-    position: relative;
+    /*position: relative;*/
     min-height: 40px;
   } 
   .titleNav ul {
     height: 100%;
     width: 100%;
     padding: 5px 0;
-    position: absolute;
+    /*position: absolute;*/
     /*background: #333 url(images/menu.png) no-repeat 10px 11px;*/
     /*box-shadow: 0 1px 2px rgba(0,0,0,.3);*/
-    z-index: 10;
+    /*z-index: 10;*/
   }
   .titleNav li {
     /*display: none; *//* hide all <li> items */

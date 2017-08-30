@@ -104,6 +104,8 @@
     $scope.dialog_title = '';
 
     $scope.isDoubanLogin = false;
+    $scope.dlcan=true;
+    $scope.isfullScreen=false;
 
     $scope.lastfm = lastfm;
     
@@ -363,6 +365,24 @@
       }, 0);
       $scope.setCurrentList(list_id);
     };
+
+    $scope.dload = function(){
+      if ($scope.dlcan) {
+          var sound = soundManager.getSoundById(angularPlayer.getCurrentTrack());
+          if (sound) {
+            var link = document.createElement('a');
+            link.innerText=link.download=$scope.playlist_title;
+            link.href = sound.url;
+            link.style.display = 'none';
+            document.body.appendChild(link);
+            link.click();
+            link.remove();
+          }else{
+            Notification.info("未能获取到下载源");
+          }
+          $scope.dlcan=!$scope.dlcan;
+      }
+    }
 
     $scope.addMylist = function(list_id){
       $timeout(function(){

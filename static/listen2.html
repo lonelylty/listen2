@@ -13,8 +13,8 @@
     <link href="css/bootstrap.min.css" rel="stylesheet">
     <link href="css/angular-ui-notification.css" rel="stylesheet">
 
-    <link href="css/cover.css" rel="stylesheet">
-    <link href="css/player.css?v=0.1.1" rel="stylesheet">
+    <link href="css/cover.css?v=0.1.1" rel="stylesheet">
+    <link href="css/player.css?v=0.1.2" rel="stylesheet">
     <link href="css/hotkeys.css" rel="stylesheet">
 
     <script type="text/javascript" src="js/vendor/jquery-1.12.2.js"></script>
@@ -36,7 +36,7 @@
 
     <script type="text/javascript" src="js/myplaylist.js"></script>
     <script type="text/javascript" src="js/loweb.js"></script>
-    <script type="text/javascript" src="js/app.js?v=0.1.1"></script>
+    <script type="text/javascript" src="js/app.js?v=0.1.2"></script>
 
   </head>
 
@@ -274,9 +274,9 @@
           </div>
           <div class="settings-title"><span>关于<span></div>
           <div class="settings-content">
-            <p> Listen 2 邮箱: lonelylty@gmail.com </p>
+            <p> Listen 2 邮箱: <a href="mailto:lonelylty@gmail.com">lonelylty@gmail.com</a></p>
             <p> Listen 2 项目地址: <a href="https://github.com/lonelylty/listen2" target="_blank"> https://github.com/lonelylty/listen2 </a> </p>
-            <p> Listen 1 邮箱: githublisten1@gmail.com </p>
+            <p> Listen 1 邮箱: <a href="mailto:githublisten1@gmail.com">githublisten1@gmail.com</a></p>
             <p> Listen 1 主页: <a href="http://listen1.github.io/listen1/" target="_blank"> http://listen1.github.io/listen1/ </a> </p>
             <p> 当前版本 2.0.0 (本服务基于MIT协议开源免费)</p>
           </div>
@@ -287,17 +287,16 @@
 
     <!-- track list window -->
     <div class="site-wrapper" ng-hide="is_window_hidden==1">
-      <div class="cover-container container-placeholder">
-        <div class="detail-close">
-          <span ng-click="popWindow()">&times;</span>
-        </div>
-      </div>
+      <!-- <div class="cover-container container-placeholder"></div> -->
       <div class="site-wrapper-innerd" resize>
         <div class="cover-container" >
+          <div class="detail-close">
+            <span ng-click="popWindow()">&times;</span>
+          </div>
           <div class="playlist-detail">
             <div class="detail-head">
               <div class="detail-head-cover">
-                <img ng-src="{{ cover_img_url }}">
+                <img ng-src="{{ cover_img_url }}" ng-dblclick="dload()">
               </div>
               <div class="detail-head-title">
                 <h2>{{ playlist_title }}</h2>
@@ -402,7 +401,7 @@
               <div class="singer" ng-click="showPlaylist(song.artist_id)">{{ song.artist }}</div>
             </li>
           </ul>
-          <div class="lyric">
+          <div class="lyric" ng-class="{'lyric-full':isfullScreen}" ng-dblclick="isfullScreen=!isfullScreen">
              <div class="placeholder"></div>
              <p ng-repeat="line in lyricArray track by $index" ng-class="{ 'highlight': line.lineNumber == lyricLineNumber }" >{{ line.content }} </p>
              <div style="placeholder"></div>

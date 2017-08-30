@@ -21,7 +21,7 @@ class indexHandler(handler.base.BaseHandler):
 			
 		try:
 			response = yield httpclient.AsyncHTTPClient().fetch(url, headers=self.domain_to_heads(domain))
-			if domain=="netease":
+			if domain=="netease" and "playlist" in url:
 				result=tornado.escape.to_basestring(response.body[8100:])
 			else:
 				result=response.body
