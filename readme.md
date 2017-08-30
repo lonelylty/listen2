@@ -8,7 +8,9 @@
 Added Functions Log
 
 - 1 Download song
+
 ![download](/static/images/download.gif)
 
 - 2 View fullscreen lyric
+
 ![lyric](/static/images/lyric.gif)
