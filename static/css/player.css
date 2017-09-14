@@ -61,8 +61,8 @@ a {
     margin: 0 auto;
     left: 0;
     right: 0;
-    z-index: 999;
-    background-color: #222222;
+    /*z-index: 999;*/
+    /*background-color: #222222;*/
 }
 
 .masthead {
@@ -88,19 +88,19 @@ a {
 }
 
 .container-placeholder {
-    margin-top: 90px;
+    /*margin-top: 90px;*/
 }
 
 .site-wrapper { 
     width:100%;
     overflow:hidden;
-    position: absolute;
+    position: fixed;
     padding-left: 17px;
 }
 
 .site-wrapper-innerd {
     overflow-y: scroll;
-    margin-top: 90px;
+    margin-top: 15px;
     /* uncomment the line below will hide the scroll bar */
     padding-right: 17px;
     box-sizing:content-box;
@@ -990,11 +990,10 @@ li {
 }
 
 .source-list {
-    position: absolute;
-    right: -32px;
-    top: 0px;
-    /*z-index: 10;*/
     text-align: center;
+    position: fixed;
+    top: 150px;
+    right: 0;
 }
 
 .source-list div{
@@ -1140,4 +1139,52 @@ li {
   .m-playbar {
     position: absolute;
   }
+}
+
+.covervid-wrapper {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #000000;
+    z-index: 10000;
+}
+.fd{ 
+    position: absolute; 
+    top: 30%; 
+    color: rgba(255, 255, 255, 0.78); 
+    font-size: 40px; 
+    width: 100%; 
+    text-align: center; 
+    font-family: Gotham, "Helvetica Neue", Helvetica, shojo, sans-serif; 
+}
+.fd-span{
+    font-family:'shojo';
+    font-weight:bold;
+}
+.fd-close {
+    text-decoration: none;
+    position: absolute;
+    top: 14px;
+    right: 14px;
+    width: 30px;
+    height: 30px;
+    line-height: 25px;
+    text-align: center;
+    color: #757575;
+    cursor: pointer;
+    -webkit-transition: all .2s;
+    transition: all .2s;
+    z-index: 10;
+    border-radius: 15px;
+    background: #e53935;
+    color: #fff;
+}
+.iconfont {
+    font-size: 24px;
+    font-family: "iconfont" !important;
+    font-style: normal;
+    -webkit-font-smoothing: antialiased;
+    -webkit-text-stroke-width: 0.2px;
+    -moz-osx-font-smoothing: grayscale;
 }

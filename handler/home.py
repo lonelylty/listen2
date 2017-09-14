@@ -17,7 +17,7 @@ class indexHandler(handler.base.BaseHandler):
 			url=configuration.config.common_url
 		if len(domain)==0:
 			domain=configuration.config.common_domain
-		print(url)
+		print(url+"\r\n"+self.GetRemoteIP()+" "+self.GetRemoteUA())
 			
 		try:
 			response = yield httpclient.AsyncHTTPClient().fetch(url, headers=self.domain_to_heads(domain))

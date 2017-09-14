@@ -5,12 +5,13 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-    <meta name="description" content="">
-    <meta name="author" content="">
+    <meta name="description" content="listen2">
+    <meta name="author" content="lonelylty">
     <meta name="referrer" content="never">
     <title ng-bind="page_title">Listen 2</title>
     <link rel="shortcut Icon" href="images/favicon.ico" /> 
     <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="http://www.bootcss.com/p/buttons/css/buttons.css">
     <link href="css/angular-ui-notification.css" rel="stylesheet">
 
     <link href="css/cover.css?v=0.1.1" rel="stylesheet">
@@ -26,9 +27,9 @@
     <script type="text/javascript" src="js/vendor/aes.js"></script>
     <script type="text/javascript" src="js/vendor/bigint.js"></script>
     <script type="text/javascript" src="js/vendor/timer.js"></script>
-
+    <script type="text/javascript" src="js/vendor/covervid.js"></script>
+    
     <script type="text/javascript" src="js/lastfm.js"></script>
-
     <script type="text/javascript" src="js/lowebutil.js"></script>
     <script type="text/javascript" src="js/provider/xiami.js"></script>
     <script type="text/javascript" src="js/provider/qq.js?v=0.1"></script>
@@ -37,82 +38,95 @@
     <script type="text/javascript" src="js/myplaylist.js"></script>
     <script type="text/javascript" src="js/loweb.js"></script>
     <script type="text/javascript" src="js/app.js?v=0.1.2"></script>
-
   </head>
 
   <body ng-controller="NavigationController">
 
+    <div class="covervid-wrapper" ng-dblclick="changeScreen()">
+      <video class="covervid-video" autoplay loop > 
+        <source src="http://221.228.226.5/3/q/b/f/s/qbfsaohtqvtspmvgyqfvkzxzcvgcrp/he.yinyuetai.com/8ABF01398CC629DAE4F7E8D971C7FA28.flv" type="video/mp4">
+      </video>
+      <div class="fd">
+            <span class="fd-span">LISTEN 2</span>
+            <br><br>
+            <a href="#" ng-click="closeScreen()" class="button button-glow button-border button-rounded button-highlight">LET'S START</a>
+      </div>
+      <a class="fd-close" href="#" ng-click="closeScreen()"><i class="iconfont">x</i></a>
+    </div>
+
     <!-- dialog -->
     <div class="shadow" ng-hide="is_dialog_hidden==1"></div>
     <div class="dialog" ng-hide="is_dialog_hidden==1" ng-style="myStyle">
-      <div class="dialog-header"> <span>{{ dialog_title }}</span> <span class="dialog-close" ng-click="closeDialog()">×</span></div>
-      <div class="dialog-body">
-
-        <!-- choose playlist dialog -->
-        <ul class="dialog-playlist" ng-show="dialog_type==0">
-          <li class="detail-add" ng-click="newDialogOption()">
-            <img src="images/mycover.jpg" />
-            <h2> 新建歌单 </h2>
-          </li>
-          <li ng-repeat="playlist in myplaylist" ng-class-odd="'odd'" ng-class-even="'even'" ng-click="chooseDialogOption(playlist.info.id)">
-            <img ng-src="{{ playlist.info.cover_img_url }}" />
-            <h2> {{ playlist.info.title }} </h2>
-          </li>
-        </ul>
-
-        <!-- create new playlist dialog -->
-        <div ng-show="dialog_type==1" class="dialog-newplaylist">
-           <input type="text" class="form-control" placeholder="输入歌单名称" ng-model="newlist_title"/>
-           <button class="btn btn-primary confirm-button" ng-click="createAndAddPlaylist()">创建并添加</button>
-           <button class="btn btn-default" ng-click="cancelNewDialog()">取消</button>
+        <div class="dialog-header"> 
+          <span>{{ dialog_title }}</span> 
+          <span class="dialog-close" ng-click="closeDialog()">×</span>
         </div>
+        <div class="dialog-body">
 
-        <!-- login douban dialog -->
-<!--         <div ng-show="dialog_type==2" class="dbimport" ng-controller="ImportController"  ng-init="getLoginInfo()" >
-          <form class="form-signin" name="loginForm" ng-submit="loginForm.$valid && loginDouban()" novalidate ng-show="!isDoubanLogin">
-            <label for="inputEmail" class="sr-only">邮件地址</label>
-            <input type="email" id="inputEmail" class="form-control" name="email" placeholder="登录邮箱" ng-model="session.user" required autofocus>
-            <label for="inputPassword" class="sr-only">密码</label>
-            <input type="password" id="inputPassword" class="form-control" placeholder="密码" ng-model="session.password" required>
-            <img ng-src="{{validcode_url}}" class="valid-img" ng-click="getLoginInfo()">
-            <label for="captchaSolution" class="sr-only">验证码</label>
-            <input type="text" id="captchaSolution" class="form-control" placeholder="请输入验证码，看不清请点击图片" ng-model="session.solution" required>
-            <button class="btn btn-lg btn-primary btn-block" type="submit" ng-disabled="!loginForm.$valid">登录</button>
-            <p class='security-notice'>注：本软件不保存和传输密码给除豆瓣以外的任何组织和个人。</p>
-          </form>
-          <button class="btn btn-lg btn-primary btn-block" ng-click="importDoubanFav()" ng-show="isDoubanLogin">导入红心兆赫到我的歌单</button>
-          <button class="btn btn-lg btn-primary btn-block" ng-click="logoutDouban()" ng-show="isDoubanLogin">退出登录</button>
-          <p ng-show="isDoubanLogin">{{ status }}</p>
-        </div> -->
+            <!-- choose playlist dialog -->
+            <ul class="dialog-playlist" ng-show="dialog_type==0">
+              <li class="detail-add" ng-click="newDialogOption()">
+                <img src="images/mycover.jpg" />
+                <h2> 新建歌单 </h2>
+              </li>
+              <li ng-repeat="playlist in myplaylist" ng-class-odd="'odd'" ng-class-even="'even'" ng-click="chooseDialogOption(playlist.info.id)">
+                <img ng-src="{{ playlist.info.cover_img_url }}" />
+                <h2> {{ playlist.info.title }} </h2>
+              </li>
+            </ul>
 
-        <!-- edit playlist dialog -->
-        <div ng-show="dialog_type==3" class="dialog-editplaylist">
-          <div class="form-group">
-            <label >标题</label>
-            <input type="text" class="form-control" placeholder="输入歌单名称" ng-model="dialog_playlist_title"/>
-          </div>
-          <div class="form-group">
-            <label >封面图片url</label>
-            <input type="text" class="form-control" placeholder="输入歌单名称" ng-model="dialog_cover_img_url"/>
-          </div>
-          
-          <button class="btn btn-primary confirm-button" ng-click="editMyPlaylist(list_id)">修改歌单</button>
-          <button class="btn btn-default" ng-click="closeDialog()">取消</button>
-          <div class='dialog-footer'> 
-            <button class="btn btn-danger remove-button" ng-click="removeMyPlaylist(list_id)">删除歌单</button>
-          </div>
+            <!-- create new playlist dialog -->
+            <div ng-show="dialog_type==1" class="dialog-newplaylist">
+               <input type="text" class="form-control" placeholder="输入歌单名称" ng-model="newlist_title"/>
+               <button class="btn btn-primary confirm-button" ng-click="createAndAddPlaylist()">创建并添加</button>
+               <button class="btn btn-default" ng-click="cancelNewDialog()">取消</button>
+            </div>
+
+            <!-- login douban dialog -->
+            <!--<div ng-show="dialog_type==2" class="dbimport" ng-controller="ImportController"  ng-init="getLoginInfo()" >
+                  <form class="form-signin" name="loginForm" ng-submit="loginForm.$valid && loginDouban()" novalidate ng-show="!isDoubanLogin">
+                    <label for="inputEmail" class="sr-only">邮件地址</label>
+                    <input type="email" id="inputEmail" class="form-control" name="email" placeholder="登录邮箱" ng-model="session.user" required autofocus>
+                    <label for="inputPassword" class="sr-only">密码</label>
+                    <input type="password" id="inputPassword" class="form-control" placeholder="密码" ng-model="session.password" required>
+                    <img ng-src="{{validcode_url}}" class="valid-img" ng-click="getLoginInfo()">
+                    <label for="captchaSolution" class="sr-only">验证码</label>
+                    <input type="text" id="captchaSolution" class="form-control" placeholder="请输入验证码，看不清请点击图片" ng-model="session.solution" required>
+                    <button class="btn btn-lg btn-primary btn-block" type="submit" ng-disabled="!loginForm.$valid">登录</button>
+                    <p class='security-notice'>注：本软件不保存和传输密码给除豆瓣以外的任何组织和个人。</p>
+                  </form>
+                  <button class="btn btn-lg btn-primary btn-block" ng-click="importDoubanFav()" ng-show="isDoubanLogin">导入红心兆赫到我的歌单</button>
+                  <button class="btn btn-lg btn-primary btn-block" ng-click="logoutDouban()" ng-show="isDoubanLogin">退出登录</button>
+                  <p ng-show="isDoubanLogin">{{ status }}</p>
+                </div> -->
+
+            <!-- edit playlist dialog -->
+            <div ng-show="dialog_type==3" class="dialog-editplaylist">
+              <div class="form-group">
+                <label >标题</label>
+                <input type="text" class="form-control" placeholder="输入歌单名称" ng-model="dialog_playlist_title"/>
+              </div>
+              <div class="form-group">
+                <label >封面图片url</label>
+                <input type="text" class="form-control" placeholder="输入歌单名称" ng-model="dialog_cover_img_url"/>
+              </div>
+              
+              <button class="btn btn-primary confirm-button" ng-click="editMyPlaylist(list_id)">修改歌单</button>
+              <button class="btn btn-default" ng-click="closeDialog()">取消</button>
+              <div class='dialog-footer'> 
+                <button class="btn btn-danger remove-button" ng-click="removeMyPlaylist(list_id)">删除歌单</button>
+              </div>
+            </div>
+
+            <div ng-show="dialog_type==4" class="dialog-connect-lastfm">
+              <p>正在打开Last.fm页面...</p>
+              <p>请在打开的页面点击"Yes, all access", 允许Listen 2访问你的账户。</p>
+              <div class="buttons">
+                <button class="btn btn-primary confirm-button" ng-click="lastfm.updateStatus();closeDialog();">已经完成授权</button>
+                <button class="btn btn-warning warning-button" ng-click="lastfm.getAuth();">遇到问题，再次打开授权页</button>
+              </div>
+            </div>
         </div>
-
-        <div ng-show="dialog_type==4" class="dialog-connect-lastfm">
-          <p>正在打开Last.fm页面...</p>
-          <p>请在打开的页面点击"Yes, all access", 允许Listen 2访问你的账户。</p>
-          <div class="buttons">
-            <button class="btn btn-primary confirm-button" ng-click="lastfm.updateStatus();closeDialog();">已经完成授权</button>
-            <button class="btn btn-warning warning-button" ng-click="lastfm.getAuth();">遇到问题，再次打开授权页</button>
-          </div>
-        </div>
-
-      </div>
     </div>
 
     <!-- page header -->
@@ -160,35 +174,31 @@
 
     <!-- content page: 精选歌单 -->
     <div class="site-wrapper" ng-show="current_tag==2" ng-controller="PlayListController" ng-init="loadPlaylist();">
-      <div class="cover-container container-placeholder">
-        <!-- make empty placeholder div to position sidebar -->
-        <div class="source-list" ng-show="is_window_hidden==1">
-          <div class="source-button" ng-class="{'active':isActiveTab(0)}" ng-click="changeTab(0)">网易</div>
-          <div class="source-button" ng-class="{'active':isActiveTab(1)}" ng-click="changeTab(1)">虾米</div>
-          <div class="source-button" ng-class="{'active':isActiveTab(2)}" ng-click="changeTab(2)">QQ音乐</div>
-          <!-- <button type="button" class="btn btn-default" ng-class="{'active':isActiveTab(3)}" ng-click="changeTab(3)" ng-show="isDoubanLogin">豆瓣</button> -->
-        </div>
-      </div>
-
       <div class="site-wrapper-innerd" id="hotplaylist" resize infinite-scroll="scrolling()" content-selector="'#playlist-content'">
         <div class="cover-container" id="playlist-content">
-           <ul class="playlist-covers">
-            <li ng-repeat="i in result ">
-              <div class="u-cover">
-                <img ng-src="{{i.cover_img_url}}">
-                <a title="" class="mask" ng-click="showPlaylist(i.id)"></a>
-                <div class="bottom">
-                  <a class="icon-play" title="播放" ng-click="directplaylist(i.id)"></a>
+          <ul class="playlist-covers">
+              <li ng-repeat="i in result ">
+                <div class="u-cover">
+                  <img ng-src="{{i.cover_img_url}}">
+                  <a title="" class="mask" ng-click="showPlaylist(i.id)"></a>
+                  <div class="bottom">
+                    <a class="icon-play" title="播放" ng-click="directplaylist(i.id)"></a>
+                  </div>
                 </div>
+                <div class="desc">
+                  <a title="{{i.title}}" ng-click="showPlaylist(i.id)">{{i.title}}</a>
+                </div>
+              </li>
+              <div class="loading_bottom">
+                <img class="searchspinner" id="spinner" src="images/loading.gif" ng-show="loading">
               </div>
-              <div class="desc">
-                <a title="{{i.title}}" ng-click="showPlaylist(i.id)">{{i.title}}</a>
-              </div>
-            </li>
-            <div class="loading_bottom">
-              <img class="searchspinner" id="spinner" src="images/loading.gif" ng-show="loading">
-            </div>
           </ul>
+          <div class="source-list" ng-show="is_window_hidden==1">
+            <div class="source-button" ng-class="{'active':isActiveTab(0)}" ng-click="changeTab(0)">网易</div>
+            <div class="source-button" ng-class="{'active':isActiveTab(1)}" ng-click="changeTab(1)">虾米</div>
+            <div class="source-button" ng-class="{'active':isActiveTab(2)}" ng-click="changeTab(2)">QQ音乐</div>
+            <!-- <button type="button" class="btn btn-default" ng-class="{'active':isActiveTab(3)}" ng-click="changeTab(3)" ng-show="isDoubanLogin">豆瓣</button> -->
+          </div>
         </div>
       </div>
     </div>

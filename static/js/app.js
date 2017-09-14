@@ -106,10 +106,19 @@
     $scope.isDoubanLogin = false;
     $scope.dlcan=true;
     $scope.isfullScreen=false;
+    $scope.browerFullScreen=false;
 
     $scope.lastfm = lastfm;
     
+    var isMoblie=/Android|webOS|iPhone|BlackBerry|MicroMessenger/i.test(navigator.userAgent);
+    if (isMoblie) {
+        $('.covervid-video').css('display','none');
+    }else{
+        $('.covervid-video').coverVid(1920, 1080);
+    }
+
     $scope.$on('isdoubanlogin:update', function(event, data) {
+      
       $scope.isDoubanLogin = data;
     });
 
@@ -382,6 +391,16 @@
           }
           $scope.dlcan=!$scope.dlcan;
       }
+    }
+
+    $scope.closeScreen = function(){
+      $(".covervid-wrapper").fadeOut(4000);
+      $(".covervid-video")[0].pause();
+    }
+
+    $scope.changeScreen = function(){
+      $scope.browerFullScreen?ExitFullscreen():FullScreen();
+      $scope.browerFullScreen=!$scope.browerFullScreen;
     }
 
     $scope.addMylist = function(list_id){
@@ -986,7 +1005,7 @@
     return function (scope, element) {
       var w = angular.element($window);
           var changeHeight = function(){
-            var headerHeight = 90;
+            var headerHeight = $(".masthead").height();
             var footerHeight = 90;
             element.css('height', (w.height() - headerHeight - footerHeight) + 'px' );
           };  
