@@ -1,6 +1,10 @@
 
 * online service address http://music.lonelylty.com
 
+* Or use the phone to scan the QR code below to install
+
+![Qrdownload](/static/images/qrdownload.png)
+
 * if you any advice to improve this user experience of this service.pls contact with me by email.
 
 ---
