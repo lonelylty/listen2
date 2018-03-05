@@ -110,11 +110,51 @@
 
     $scope.lastfm = lastfm;
     
+
+    var isShare=false;
+    var obj = new Object();
+
+    if(location.search.length!=0)
+    {
+        var str = location.search;
+        str = str.substring(1,str.length);
+        var arr = str.split("&");
+        
+        for(var i = 0; i < arr.length; i++) {
+            var tmp_arr = arr[i].split("=");
+            obj[decodeURIComponent(tmp_arr[0])] = decodeURIComponent(tmp_arr[1]);
+        }
+
+        if(obj["s"]!=null && obj["k"]!=null && obj["id"]!=null)
+            isShare=true;
+    }
+
     var isMoblie=/Android|webOS|iPhone|BlackBerry|MicroMessenger/i.test(navigator.userAgent);
-    if (isMoblie) {
-        $('.covervid-video').css('display','none');
-    }else{
+    
+    if(isShare||isMoblie)
+        $('.covervid-video').empty();
+    else
         $('.covervid-video').coverVid(1920, 1080);
+
+    if(isShare)
+    {
+        var source=obj["s"];
+        var id=obj["id"];
+        $scope.keywords=obj["k"];
+        
+        loWeb.get('/search?source=' + source + '&keywords=' + $scope.keywords).success(function(data) {
+            $scope.result = data.result;
+            $scope.loading = false; 
+            if($scope.result!=null){
+                $.each($scope.result,function(index,obj){
+                    if(obj.id==id){
+                        angularPlayer.addTrack(obj);
+                        angularPlayer.playTrack(obj.id);
+                        return false;
+                    }
+                })
+            }
+        });
     }
 
     $scope.$on('isdoubanlogin:update', function(event, data) {
@@ -135,6 +175,7 @@
       $scope.cover_img_url = 'images/loading.gif';
       $scope.playlist_title = '';
       $scope.playlist_source_url = '';
+      $scope.playlist_share_url = '';
       $scope.songs = [];
     };
 
@@ -153,6 +194,7 @@
           $scope.cover_img_url = data.info.cover_img_url;
           $scope.playlist_title = data.info.title;
           $scope.playlist_source_url = data.info.source_url;
+          $scope.playlist_share_url = window.location.origin+"?s="+angularPlayer.currentTrackData().source+"&k="+encodeURI(angularPlayer.currentTrackData().title)+"&id="+angularPlayer.currentTrackData().id;
           $scope.list_id = data.info.id;
           $scope.is_mine = (data.info.id.slice(0,2) == 'my');
       });
@@ -178,6 +220,7 @@
             $scope.cover_img_url = data.info.cover_img_url;
             $scope.playlist_title = data.info.title;
             $scope.playlist_source_url = data.info.source_url;
+            $scope.playlist_share_url = window.location.origin+"?s="+angularPlayer.currentTrackData().source+"&k="+encodeURI(angularPlayer.currentTrackData().title)+"&id="+angularPlayer.currentTrackData().id;
             $scope.is_mine = (data.info.id.slice(0,2) == 'my');
         });
       }
@@ -1006,7 +1049,7 @@
       var w = angular.element($window);
           var changeHeight = function(){
             var headerHeight = $(".masthead").height();
-            var footerHeight = 90;
+            var footerHeight = w.height()>320?90:0;
             element.css('height', (w.height() - headerHeight - footerHeight) + 'px' );
           };  
         w.bind('resize', function () {        

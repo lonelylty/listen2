@@ -96,6 +96,12 @@ body {
   border-bottom-color: #fff;
 }
 
+@media screen and (max-width: 375px) {
+    .masthead-nav > li + li {
+      margin-left: 12px;
+    }
+}
+
 @media screen and (max-width: 445px) {
   .titleNav {
     /*position: relative;*/
@@ -113,9 +119,6 @@ body {
   .titleNav li {
     /*display: none; *//* hide all <li> items */
     /*margin: 0;*/
-  }
-  .masthead-nav > li + li {
-    margin-left: 6px;
   }
   
   .titleNav .active {

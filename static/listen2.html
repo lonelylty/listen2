@@ -315,6 +315,7 @@
                 <a title="收藏歌单" class="clone" ng-show="playlist_title!='' && !is_mine" ng-click="clonePlaylist(list_id)">收藏</a>
                 <a title="编辑歌单" class="edit" ng-show="playlist_title!='' && is_mine" ng-click="showDialog(3, {list_id: list_id, playlist_title: playlist_title, cover_img_url: cover_img_url})">编辑</a>
                 <a title="原始链接" class="link" ng-show="playlist_title!=''" open-url="playlist_source_url">原始链接</a>
+                <a title="分享链接" class="link" ng-show="playlist_title!=''" open-url="playlist_share_url">分享链接</a>
               </div>
             </div>
             <ul class="detail-songlist">
