@@ -18,3 +18,7 @@ Added Functions Log
 - 2 View fullscreen lyric
 
 ![lyric](/static/images/lyric.gif)
+
+- 3 Share function
+
+![lyric](/static/images/share.gif)
