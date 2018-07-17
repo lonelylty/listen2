@@ -211,7 +211,8 @@ var netease = (function() {
 
 
     function is_playable(song) {
-        return ((song.status >= 0) && (song.fee != 4));
+        //return ((song.status >= 0) && (song.fee != 4));
+        return song.fee != 4;
     }
     
     var ne_search = function(url, hm, se) {

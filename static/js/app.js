@@ -131,8 +131,10 @@
 
     var isMoblie=/Android|webOS|iPhone|BlackBerry|MicroMessenger/i.test(navigator.userAgent);
     
-    if(isShare||isMoblie)
+    if(isShare||isMoblie){
         $('.covervid-video').empty();
+        $('.covervid-video').css('display','none');
+    }
     else
         $('.covervid-video').coverVid(1920, 1080);
 
@@ -1049,7 +1051,7 @@
       var w = angular.element($window);
           var changeHeight = function(){
             var headerHeight = $(".masthead").height();
-            var footerHeight = w.height()>320?90:0;
+            var footerHeight = w.height()>375?90:0;
             element.css('height', (w.height() - headerHeight - footerHeight) + 'px' );
           };  
         w.bind('resize', function () {        
