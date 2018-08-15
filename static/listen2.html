@@ -406,7 +406,7 @@
               <a class="close-popup" ng-click="menuHidden=!menuHidden">×</a>
           </div>
           <ul>
-            <li id="song{{ song.id }}" ng-repeat="song in playlist" ng-class="{ playing: currentPlaying.id == song.id }" ng-mouseenter="playlist_highlight=true" ng-mouseleave="playlist_highlight=false">
+            <li id="song{{ song.id }}" ng-repeat="song in playlist track by $index" ng-class="{ playing: currentPlaying.id == song.id }" ng-mouseenter="playlist_highlight=true" ng-mouseleave="playlist_highlight=false">
               <div class="title" play-from-playlist="song"><a>{{ song.title }}</a></div>
               <a class="icn-remove" remove-from-playlist="song" data-index="{{$index}}" ng-show="playlist_highlight"></a>
               <div class="singer" ng-click="showPlaylist(song.artist_id)">{{ song.artist }}</div>

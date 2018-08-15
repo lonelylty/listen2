@@ -15,17 +15,20 @@ class indexHandler(handler.base.BaseHandler):
 
 		if len(url)==0:
 			url=configuration.config.common_url
+		if not url.startswith('http:'):
+			url="http:"+url
 		if len(domain)==0:
 			domain=configuration.config.common_domain
+
 		print(url+"\r\n"+self.GetRemoteIP()+" "+self.GetRemoteUA())
-			
+
 		try:
 			response = yield httpclient.AsyncHTTPClient().fetch(url, headers=self.domain_to_heads(domain))
-			if domain=="netease" and "playlist" in url:
-				result=response.body
+			#if domain=="netease" and "playlist" in url:
+			#	result=response.body
 				# result=tornado.escape.to_basestring(response.body[8100:])
-			else:
-				result=response.body
+			#else:
+			result=response.body
 			self.write(result)
 		except httpclient.HTTPError as e:
 			print('Exception: %s %s' % (e, url))
@@ -54,10 +57,13 @@ class indexHandler(handler.base.BaseHandler):
 		if len(s)!=0 or len(offset)!=0 or len(limit)!=0 or len(tye)!=0:
 			data ='s='+s+'&offset='+ offset+'&limit='+ limit+'&type='+ tye
 		elif len(encSecKey)!=0 or len(params)!=0:
+			#print("\r\nencSecKey:\r\n"+encSecKey)
+			#print("\r\nparams:\r\n"+params)
 			# tornado.escape.url_unescape(url, encoding='utf-8', plus=True)
 			data='encSecKey='+tornado.escape.url_escape(encSecKey, plus=True)+'&params='+tornado.escape.url_escape(params, plus=True)
+			#data='encSecKey='+tornado.escape.utf8(encSecKey)+'&params='+tornado.escape.utf8(params)
 
-		print(url+"\r\n"+data)
+		print("\r\n"+url+"\r\n"+data)
 
 		try:
 			response = yield httpclient.AsyncHTTPClient().fetch(url, method='POST',body=data,headers=self.domain_to_heads(domain))
