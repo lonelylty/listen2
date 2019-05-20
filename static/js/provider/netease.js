@@ -7,9 +7,9 @@ var netease = (function() {
         var offset = getParameterByName('offset',url)
 
         if (offset !=  null) {
-            var target_url = 'http://music.163.com/discover/playlist/?order=' + order + '&limit=35&offset=' + offset;
+            var target_url = 'https://music.163.com/discover/playlist/?order=' + order + '&limit=35&offset=' + offset;
         } else {
-            var target_url = 'http://music.163.com/discover/playlist/?order=' + order;
+            var target_url = 'https://music.163.com/discover/playlist/?order=' + order;
         }
 
         return {
@@ -30,7 +30,7 @@ var netease = (function() {
                         var url = $(this).find('div a')[0].href;
                         var list_id = getParameterByName('id',url);
                         default_playlist.id = 'neplaylist_' + list_id;
-                        default_playlist.source_url = 'http://music.163.com/#/playlist?id=' + list_id;
+                        default_playlist.source_url = 'https://music.163.com/#/playlist?id=' + list_id;
                         result.push(default_playlist);
                     });
                     return fn({"result":result});
@@ -41,7 +41,7 @@ var netease = (function() {
 
     var ne_get_playlist = function(url, hm, se) {
         var list_id = getParameterByName('list_id', url).split('_').pop();
-        var target_url = 'http://music.163.com/playlist?id=' + list_id;
+        var target_url = 'https://music.163.com/playlist?id=' + list_id;
         return {
             success: function(fn) {
                 target_url="/index?domain=netease&url="+target_url;
@@ -52,7 +52,7 @@ var netease = (function() {
                         'id': 'neplaylist_' + list_id,
                         'cover_img_url': dataObj.find('.u-cover img').attr('src'),
                         'title': dataObj.find('.tit h2').text(),
-                        'source_url': 'http://music.163.com/#/playlist?id=' + list_id,
+                        'source_url': 'https://music.163.com/#/playlist?id=' + list_id,
                     };
                     var tracks = [];
                     var json_string = dataObj.find('textarea').val();
@@ -76,7 +76,7 @@ var netease = (function() {
                         default_track.artist_id = 'neartist_' + track_json.artists[0].id;
                         default_track.album = track_json.album.name;
                         default_track.album_id = 'nealbum_' + track_json.album.id;
-                        default_track.source_url = 'http://music.163.com/#/song?id=' +  track_json.id;
+                        default_track.source_url = 'https://music.163.com/#/song?id=' +  track_json.id;
                         default_track.img_url = track_json.album.picUrl;
                         default_track.url = default_track.id;
 
@@ -178,7 +178,7 @@ var netease = (function() {
     }
 
     var ne_bootstrap_track = function(sound, track, success, failure, hm, se) {
-        var target_url = 'http://music.163.com/weapi/song/enhance/player/url?csrf_token=';
+        var target_url = 'https://music.163.com/weapi/song/enhance/player/url?csrf_token=';
         var csrf = '';
         var song_id = track.id;
 
@@ -217,7 +217,7 @@ var netease = (function() {
     
     var ne_search = function(url, hm, se) {
         // use chrome extension to modify referer.
-        var target_url = 'http://music.163.com/api/search/pc';
+        var target_url = 'https://music.163.com/api/search/pc';
         var keyword = getParameterByName('keywords', url);
         var req_data = {
             's': keyword,
@@ -245,7 +245,7 @@ var netease = (function() {
                             'album': song_info.album.name,
                             'album_id': 'nealbum_' + song_info.album.id,
                             'source': 'netease',
-                            'source_url': 'http://music.163.com/#/song?id=' + song_info.id,
+                            'source_url': 'https://music.163.com/#/song?id=' + song_info.id,
                             'img_url': song_info.album.picUrl,
                             'url': 'netrack_' + song_info.id,
                         };
@@ -267,7 +267,7 @@ var netease = (function() {
     var ne_album = function(url, hm, se) {
         var album_id = getParameterByName('list_id', url).split('_').pop();
         // use chrome extension to modify referer.
-        var target_url = 'http://music.163.com/api/album/' + album_id;
+        var target_url = 'https://music.163.com/api/album/' + album_id;
 
         return {
             success: function(fn) {
@@ -279,7 +279,7 @@ var netease = (function() {
                         'cover_img_url': data.album.picUrl,
                         'title': data.album.name,
                         'id': 'nealbum_' + data.album.id,
-                        'source_url': 'http://music.163.com/#/album?id=' + data.album.id
+                        'source_url': 'https://music.163.com/#/album?id=' + data.album.id
                     };
 
                     var tracks = [];
@@ -292,7 +292,7 @@ var netease = (function() {
                             'album': song_info.album.name,
                             'album_id': 'nealbum_' + song_info.album.id,
                             'source': 'netease',
-                            'source_url': 'http://music.163.com/#/song?id=' + song_info.id,
+                            'source_url': 'https://music.163.com/#/song?id=' + song_info.id,
                             'img_url': song_info.album.picUrl,
                             'url': 'netrack_' + song_info.id
                         };
@@ -313,7 +313,7 @@ var netease = (function() {
     var ne_artist = function(url, hm, se) {
         var artist_id = getParameterByName('list_id', url).split('_').pop();
         // use chrome extension to modify referer.
-        var target_url = 'http://music.163.com/api/artist/' + artist_id;
+        var target_url = 'https://music.163.com/api/artist/' + artist_id;
 
         return {
             success: function(fn) {
@@ -325,7 +325,7 @@ var netease = (function() {
                         'cover_img_url': data.artist.picUrl,
                         'title': data.artist.name,
                         'id': 'neartist_' + data.artist.id,
-                        'source_url': 'http://music.163.com/#/artist?id=' + data.artist.id
+                        'source_url': 'https://music.163.com/#/artist?id=' + data.artist.id
                     };
 
                     var tracks = [];
@@ -338,7 +338,7 @@ var netease = (function() {
                             'album': song_info.album.name,
                             'album_id': 'nealbum_' + song_info.album.id,
                             'source': 'netease',
-                            'source_url': 'http://music.163.com/#/song?id=' + song_info.id,
+                            'source_url': 'https://music.163.com/#/song?id=' + song_info.id,
                             'img_url': song_info.album.picUrl,
                             'url': 'netrack_' + song_info.id
                         };
@@ -359,7 +359,7 @@ var netease = (function() {
     var ne_lyric = function(url, hm, se) {
         var track_id = getParameterByName('track_id', url).split('_').pop();
         // use chrome extension to modify referer.
-        var target_url = 'http://music.163.com/weapi/song/lyric?csrf_token=';
+        var target_url = 'https://music.163.com/weapi/song/lyric?csrf_token=';
         var csrf = '';
         var d = {
             'id': track_id,

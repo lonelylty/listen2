@@ -249,7 +249,7 @@ var qq = (function() {
             data = JSON.parse(data);
             var token = data.key;
             var url = 'http://streamoc.music.tc.qq.com/C200' +  track.id.slice('qqtrack_'.length)  + '.m4a?vkey=' +
-                token + '&fromtag=0&guid=780782017';
+                token + '&fromtag=66&guid=2249859304&uin=0';
             sound.url = url;
             success();
         });
