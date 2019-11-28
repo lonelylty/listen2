@@ -15,8 +15,8 @@ class indexHandler(handler.base.BaseHandler):
 
 		if len(url)==0:
 			url=configuration.config.common_url
-		if not url.startswith('http:'):
-			url="http:"+url
+		if not url.startswith('https:'):
+			url="https:"+url
 		if len(domain)==0:
 			domain=configuration.config.common_domain
 
@@ -28,7 +28,7 @@ class indexHandler(handler.base.BaseHandler):
 			#	result=response.body
 				# result=tornado.escape.to_basestring(response.body[8100:])
 			#else:
-			result=response.body
+			result=str(response.body,"utf-8")
 			self.write(result)
 		except httpclient.HTTPError as e:
 			print('Exception: %s %s' % (e, url))
@@ -67,7 +67,7 @@ class indexHandler(handler.base.BaseHandler):
 
 		try:
 			response = yield httpclient.AsyncHTTPClient().fetch(url, method='POST',body=data,headers=self.domain_to_heads(domain))
-			result=str(response.body)
+			result=str(response.body,"utf-8")
 			# print(result)
 			self.write(result)
 		except httpclient.HTTPError as e:
