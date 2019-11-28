@@ -15,8 +15,8 @@ class indexHandler(handler.base.BaseHandler):
 
 		if len(url)==0:
 			url=configuration.config.common_url
-		if not url.startswith('https:'):
-			url="https:"+url
+		# if not url.startswith('https:'):
+		# 	url="https:"+url
 		if len(domain)==0:
 			domain=configuration.config.common_domain
 
